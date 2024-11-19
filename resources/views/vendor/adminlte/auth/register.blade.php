@@ -1,108 +1,116 @@
-@extends('adminlte::auth.auth-page', ['auth_type' => 'register'])
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">Toyota Mobility Solutions (BETA)</div>
+                    <div class="card-body">
+                        <form id="registrationForm">
+                            <h3>Personal Information</h3>
+                            <p>(All fields are required)</p>
+                                <div class="row col-12">
+                                    <div class="form-group col-6">
+                                        <label for="first_name">First Name</label>
+                                        <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Ex. John" required>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label for="last_name">Last Name</label>
+                                        <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Ex. Doe" required>
+                                    </div>
+                                </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Ex. john.doe@doeindustry.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="mobile_number">Mobile Number</label>
+                                <input type="text" class="form-control" id="mobile_number" name="mobile_number" placeholder="Ex. 09088178888" required>
+                            </div>
+                            <h3>Business Information</h3>
+                            <p>(All fields are required)</p>
+                                <div class="row col-12">
+                                    <div class="form-group col-6">
+                                        <label for="business_name">Business Name</label>
+                                        <input type="text" class="form-control" id="business_name" name="business_name" placeholder="Ex. Doe Machinary" required>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label for="industry_type">Industry Type</label>
+                                        <select class="form-control" id="industry_type" name="industry_type" required>
+                                            <option value="">Please Select</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            
+                            <div class="form-group">
+                                <label for="address_line">Address Line</label>
+                                <input type="text" class="form-control" id="address_line" name="address_line" placeholder="Ex. 123 Katapangan St. Corner Kalualhatian" required>
+                            </div>
 
-@php( $login_url = View::getSection('login_url') ?? config('adminlte.login_url', 'login') )
-@php( $register_url = View::getSection('register_url') ?? config('adminlte.register_url', 'register') )
-
-@if (config('adminlte.use_route_url', false))
-    @php( $login_url = $login_url ? route($login_url) : '' )
-    @php( $register_url = $register_url ? route($register_url) : '' )
-@else
-    @php( $login_url = $login_url ? url($login_url) : '' )
-    @php( $register_url = $register_url ? url($register_url) : '' )
-@endif
-
-@section('auth_header', __('adminlte::adminlte.register_message'))
-
-@section('auth_body')
-    <form action="{{ $register_url }}" method="post">
-        @csrf
-
-        {{-- Name field --}}
-        <div class="input-group mb-3">
-            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                   value="{{ old('name') }}" placeholder="{{ __('adminlte::adminlte.full_name') }}" autofocus>
-
-            <div class="input-group-append">
-                <div class="input-group-text">
-                    <span class="fas fa-user {{ config('adminlte.classes_auth_icon', '') }}"></span>
+                            <div class="row col-12">
+                                <div class="form-group col-4">
+                                    <label for="province">Province</label>
+                                    <input type="text" class="form-control" id="province" name="province" placeholder="Ex. BULACAN" required>
+                                </div>
+                                <div class="form-group col-4">
+                                    <label for="municipality_city">Municipality/City</label>
+                                    <input type="text" class="form-control" id="municipality_city" name="municipality_city" placeholder="Ex. CARMEN" required>
+                                </div>
+                                <div class="form-group col-4">
+                                    <label for="zip_code">Zip Code</label>
+                                    <input type="text" class="form-control" id="zip_code" name="zip_code" placeholder="Ex. 41968" required>
+                                </div>
+                            </div>
+                            
+                            <div class="d-flex flex-column justify-content-center align-items-center">
+                                <div class="form-group form-check">
+                                    <input type="checkbox" class="form-check-input" id="privacy_policy" name="privacy_policy" required>
+                                    <label class="form-check-label" for="privacy_policy">I agree with the Privacy Policy</label>
+                                </div>
+                                <div class="form-group form-check">
+                                    <input type="checkbox" class="form-check-input" id="terms_conditions" name="terms_conditions" required>
+                                    <label class="form-check-label" for="terms_conditions">I agree with the Terms and Conditions</label>
+                                </div>
+                                <div>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                            
+                        </form>
+                    </div>
                 </div>
             </div>
-
-            @error('name')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
         </div>
+    </div>
 
-        {{-- Email field --}}
-        <div class="input-group mb-3">
-            <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                   value="{{ old('email') }}" placeholder="{{ __('adminlte::adminlte.email') }}">
+    <script>
 
-            <div class="input-group-append">
-                <div class="input-group-text">
-                    <span class="fas fa-envelope {{ config('adminlte.classes_auth_icon', '') }}"></span>
-                </div>
-            </div>
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Validate mobile number length
+            var mobileNumber = document.getElementById('mobile_number').value;
+            if (mobileNumber.length !== 11 || isNaN(mobileNumber)) {
+                alert('Mobile number must be exactly 11 digits.');
+                return;
+            }
+            
+            // If validation passes, display success message and redirect
+            alert('Registration successful! Redirecting to the login page.');
+            window.location.href = '/login'; // Update this URL as per your routing configuration
+        });
+    </script>
 
-            @error('email')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-        </div>
-
-        {{-- Password field --}}
-        <div class="input-group mb-3">
-            <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
-                   placeholder="{{ __('adminlte::adminlte.password') }}">
-
-            <div class="input-group-append">
-                <div class="input-group-text">
-                    <span class="fas fa-lock {{ config('adminlte.classes_auth_icon', '') }}"></span>
-                </div>
-            </div>
-
-            @error('password')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-        </div>
-
-        {{-- Confirm password field --}}
-        <div class="input-group mb-3">
-            <input type="password" name="password_confirmation"
-                   class="form-control @error('password_confirmation') is-invalid @enderror"
-                   placeholder="{{ __('adminlte::adminlte.retype_password') }}">
-
-            <div class="input-group-append">
-                <div class="input-group-text">
-                    <span class="fas fa-lock {{ config('adminlte.classes_auth_icon', '') }}"></span>
-                </div>
-            </div>
-
-            @error('password_confirmation')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-        </div>
-
-        {{-- Register button --}}
-        <button type="submit" class="btn btn-block {{ config('adminlte.classes_auth_btn', 'btn-flat btn-primary') }}">
-            <span class="fas fa-user-plus"></span>
-            {{ __('adminlte::adminlte.register') }}
-        </button>
-
-    </form>
-@stop
-
-@section('auth_footer')
-    <p class="my-0">
-        <a href="{{ $login_url }}">
-            {{ __('adminlte::adminlte.i_already_have_a_membership') }}
-        </a>
-    </p>
-@stop
+</body>
+</html>

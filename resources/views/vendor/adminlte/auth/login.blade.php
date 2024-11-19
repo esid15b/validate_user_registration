@@ -1,3 +1,4 @@
+
 @extends('adminlte::auth.auth-page', ['auth_type' => 'login'])
 
 @section('adminlte_css_pre')
@@ -101,4 +102,52 @@
             </a>
         </p>
     @endif
+@stop
+@section('js')
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector("form");
+    const emailInput = document.querySelector("input[name='email']");
+    const phoneInput = document.querySelector("input[name='phone']");
+    const errorMessage = document.createElement("div");
+    errorMessage.style.color = "red";
+    form.appendChild(errorMessage);
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault(); // Prevent form submission for testing purposes
+        errorMessage.textContent = ""; // Clear previous error messages
+
+        const email = emailInput.value;
+        const phone = phoneInput.value;
+
+        // Step 3: Validate phone number format
+        if (!/^\+?[0-9]{10,15}$/.test(phone)) {
+            errorMessage.textContent = "Incorrect phone number format. Please try again.";
+            return;
+        }
+
+        // Step 4: Validate email format
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            errorMessage.textContent = "Incorrect email format. Please try again.";
+            return;
+        }
+
+        // Step 5: Check for empty fields
+        if (!email || !phone) {
+            errorMessage.textContent = "Email and Phone number cannot be empty.";
+            return;
+        }
+
+        // Step 6: Validate special characters in email and phone
+        if (/[^a-zA-Z0-9@.]/.test(email) || /[^0-9+]/.test(phone)) {
+            errorMessage.textContent =
+                "Special characters are not allowed in Email and Phone number.";
+            return;
+        }
+
+        // Success case
+        alert("Form submitted successfully!");
+    });
+});
+</script>
 @stop
